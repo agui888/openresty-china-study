@@ -69,10 +69,10 @@
                 },
                 dataType : 'json',
                 success : function(result) {
-                	console.log(result);
+                	//console.log(result);
                 	 
                     if(result.success){
-                       // window.location.href="/index";
+                        window.location.href="/index";
                     }else{
                         $("#tip div").text(result.msg);
                         $("#tip").show();
