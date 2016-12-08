@@ -165,11 +165,17 @@ end)
 
 
 auth_router:get("/logout", function(req, res, next)
-    res.locals.login = false
-    res.locals.username = ""
-    res.locals.userid = 0
-    res.locals.create_time = ""
-    req.session.destroy()
+         local ok, err = req.cookie.set({
+		    key = "user",
+		    value =  0,
+		    path = "/",
+		    --domain = "new.cn",
+		    secure = false,  
+		    httponly = true, 
+		    max_age = -1,  
+		    samesite = "Strict",  
+		    extension = "a4334aeba444e22222222ce"   
+		}) 
     res:redirect("/index")
 end)
 
