@@ -3,17 +3,8 @@
    
 ##  先感谢饭总勤劳付出，原地址https://github.com/sumory/openresty-china
  
-学习过程中修改了几点：
-
-1. 将登陆验证的session方式改为了cookie，完善了cookie的set方法；
  
-2. 新增了加密,解密验证；
-
-3. 修改了debug 用作调试输出
-
-  
-  
-####具体步骤；
+####登陆验证的session方式改为cookie具体步骤；
 ```
       1. 完善cookie基本方法
           在/lor/lib/middleware/cookie.lua文件  补充set() get() get_all() 等方法 
