@@ -1,7 +1,9 @@
 # openresty-china-study
  注明：此项目主要作为openresty练手项目，源码中留下很多中文注释。 lor版本当前最新
-
- 先感谢饭总勤劳付出，原地址https://github.com/sumory/openresty-china
+ 
+  传上来的目的只是为了方便学习笔记同步，当做svn git等版本控制使用；
+  
+  先感谢饭总勤劳付出，原地址https://github.com/sumory/openresty-china
  
 学习过程中修改了几点：
 
