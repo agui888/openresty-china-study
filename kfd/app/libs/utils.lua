@@ -3,12 +3,12 @@
 - @Name utils.lua
 - @Author sixiong
 - @Version 1.0
-- @Date: 2016年6月11日下午22:06:41
+- @Date: 2016年12月11日下午22:06:41
 - @Description 常用函数库
 - @Class
 - @Function List
 - @History <author> <time> <version > <desc>
-    sixiong 2016年6月11日下午22:06:41  1.0  第一次建立该文件
+    sixiong 2016年12月11日下午22:06:41  1.0  第一次建立该文件
 --]] 
  
 local type = type
