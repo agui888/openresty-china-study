@@ -24,7 +24,9 @@ function _M:new(create_app, Router, Route, Request, Response)
     instance.response = Response
     instance.fn = create_app  --lor.lua 中的函数
     instance.app = nil
-
+    
+    --ngx.say('wrap.lua-->new()--- 1 ');
+    
     setmetatable(instance, {
         __index = self,           -- 将_M 变为 instance的父类
         __call = self.create_app  --把table当成函数一样调用 instance() ==> create_app()
@@ -39,7 +41,9 @@ function _M:create_app(options)
     return self.app
 end
 
-function _M:Router(options)
+function _M:Router(options) 
+    --ngx.say('wrap.lua-->Router()----------------------------------------------------------------------组合开始 ');
+
     options = options or {}
     options.group_router = true
     return self.router:new(options)

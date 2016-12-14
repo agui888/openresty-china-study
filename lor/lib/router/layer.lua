@@ -19,12 +19,15 @@ local Layer = {}
 --[[
 - @desc   初始化每个中间件将其封装为独立table
 - @param  string   path   路径
-- @param  table   options 配置   {is_end = false, is_start = true}
+- @param  table   options 配置   {is_end = false在path尾部加反斜线 true在尾部加$, is_start = true在path开头加^ false不管}
 - @param  function  fn    匿名函数 
 - @param  int    fn_args_length   匿名函数的参数个数 
 - return  table
 --]]
 function Layer:new(path, options, fn, fn_args_length)
+
+--ngx.say('Layer.lua---调用Layer:new()---Layer被实例化---11'); 
+
     local opts = options or {}
     local instance = {}
     instance.handle = fn
@@ -55,7 +58,15 @@ function Layer:new(path, options, fn, fn_args_length)
     else
         instance.pattern =  instance.pattern
     end
-
+    
+  --ngx.say('-----------------'..instance.pattern .. '----------------13');
+  -------注释-------
+    if (instance.keys) and #(instance.keys)>0 then 
+       -- debug(instance); 
+      --   --ngx.say('------'..(instance.keys)[1] .. '----------------13');
+     end
+   ----------------  
+   
     setmetatable(instance, {
         __index = self,
         __tostring = function(s)
@@ -116,14 +127,13 @@ end
 --]]
 function Layer:handle_request(req, res, next)  
     local fn = self.handle
- --ngx.say('有'.. (self.length) ..'个参数的执行这里,name--->' ..(self.name).."\r\n");
+ --ngx.say('有'.. (self.length) ..'个参数的执行这里,name--->' ..(self.name).."--------最终执行函数被执行");
     if self.length > 3 then  
        return next(); 
     end
   
     local e;
-    local ok, ee = xpcall(function() 
-                    
+    local ok, ee = xpcall(function()  
 			          return fn(req, res, next); 
 			       end,
 				   function(msg)
@@ -131,8 +141,7 @@ function Layer:handle_request(req, res, next)
 				   end); 
     if not ok then
         return  next(e or ee)
-    end
-   
+    end 
 end
 
 --[[
@@ -153,6 +162,7 @@ function Layer:match(path)
         path = pathRegexp.clear_slash(path .. "/")
     end
     
+   
     --req.path 与 所有已经注册的路径((( /([A-Za-z0-9._-]+) )))做对比
     local match_or_not = pathRegexp.is_match(path, self.pattern)
     if not match_or_not then 
@@ -160,11 +170,8 @@ function Layer:match(path)
     end
 
     local m = pathRegexp.parse_path(path, self.pattern, self.keys)
-    if m then
-        --debug("layer.lua#match 4", path, self.pattern, self.keys, m)
-    end
- 
-    self.params = m  -- fixbug: the params should not be transfered to next Request. 
+   --ngx.say('--------------------path: '.. path ..'---------pattern:' .. self.pattern..'---------------');
+    self.params = m  -- fixbug:参数个数不应转移到下一个请求。
     return true
 end
 

@@ -20,7 +20,9 @@ local createApplication = function(options)
     if options and options.debug and type(options.debug) == 'boolean' then
         LOR_FRAMEWORK_DEBUG = options.debug
     end
-
+    
+    --ngx.say('index.lua--把lor当做方法调用执行---createApplication()-2');  
+    
     local app = Application:new()
     app:init(options) 
      

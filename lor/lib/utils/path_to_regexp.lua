@@ -15,14 +15,17 @@ end
 
 
 function _M.parse_pattern(path, keys, options)
+
+--ngx.say('lor/lib/utils/path_to_regexp.lua-->parse_pattern()---12');
+
     path = _M.clear_slash(path)
  
     local new_pattern = sgsub(path, "/:([A-Za-z0-9._-]+)", function(m)
          --全局性的匹配替换  每匹配替换一次  此匿名函数执行一次  m 参数是table key是0开始的索引  value是匹配的旧内容
         if m and type(m) == 'table' then 
-            ---  for i, v in pairs(m) do
-            --     	ngx.say(i .. " * * * * ".. v)
-            --  end
+              --for i, v in pairs(m) do
+              --    	ngx.say(i .. " * * * * ".. v)
+             -- end
               
             tappend(keys, m[1])
         end
@@ -34,6 +37,7 @@ function _M.parse_pattern(path, keys, options)
     local all_pattern = sgsub(new_pattern, "/[%*]+", function(m)
         return "/(.*)" -- "/(.)"
     end, "io")
+
     return all_pattern
 end
 
@@ -78,7 +82,6 @@ function _M.is_match(uri, pattern)
         return false
     end
 end
-
-
+ 
 return _M
 

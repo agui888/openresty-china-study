@@ -8,8 +8,8 @@
 	local reponse_time_middleware = require("app.middleware.response_time")  -- 过滤器:添加响应头 
 	
 	 
-   local app = lor({debug = false});
-
+   local app = lor();
+    --ngx.say('--------------------------app.lua----8');  
 	app:conf("view enable", true)   --是否开启视图 往lor/lib/application.lua 下settings属性(table)中放 
 	app:conf("view engine", config.view_config.engine) --视图引擎
 	app:conf("view ext", config.view_config.ext)     --视图文件后缀
@@ -35,15 +35,16 @@
 	
 	local common_router = require("app.routes.common")
 	local auth_router = require("app.routes.auth")
+	local error_router = require("app.routes.error")
+	local user_router = require("app.routes.user")
+	local category_router = require("app.routes.category")	
 	local topic_router = require("app.routes.topic")
 	local topics_router = require("app.routes.topics")
 	local comment_router = require("app.routes.comment")
 	local comments_router = require("app.routes.comments")
-	local user_router = require("app.routes.user")
-	local upload_router = require("app.routes.upload")
-	local category_router = require("app.routes.category")
 	local notification_router = require("app.routes.notification")
-	local error_router = require("app.routes.error")
+	local upload_router = require("app.routes.upload")
+
 	 
     app:use("/auth", auth_router())
     app:use("/error", error_router())
